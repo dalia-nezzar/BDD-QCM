@@ -60,7 +60,7 @@ questions = [
             "Stocker les données utilisateur",
             "Gérer les connexions utilisateur"
         ],
-        "correct": 1,
+        "correct": 2,
         "explanation": "Le WAL (Write Ahead Log) garantit qu'une instance de base de données puisse survivre aux pannes en cas de crash du système."
     },
     {
