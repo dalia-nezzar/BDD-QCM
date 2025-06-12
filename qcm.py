@@ -300,8 +300,9 @@ def main():
         st.header("📊 Informations")
         if st.session_state.quiz_started:
             st.metric("Question actuelle", f"{st.session_state.current_question + 1}/{len(questions)}")
-            st.metric("Score actuel",
-                      f"{st.session_state.score}/{st.session_state.current_question + 1}" if st.session_state.current_question > 0 else "0/0")
+            # Score caché jusqu'à la fin
+            if st.session_state.quiz_finished:
+                st.metric("Score final", f"{st.session_state.score}/{len(questions)}")
             progress = (st.session_state.current_question + 1) / len(questions)
             st.progress(progress)
 
@@ -348,17 +349,12 @@ def main():
         if current_q < len(questions):
             user_answer = display_question(current_q)
 
-            col1, col2 = st.columns([1, 1])
-
-            with col1:
-                if st.button("⬅️ Question précédente", disabled=current_q == 0):
-                    if current_q > 0:
-                        st.session_state.current_question -= 1
-                        st.rerun()
+            # Centrer le bouton de navigation
+            col1, col2, col3 = st.columns([1, 2, 1])
 
             with col2:
                 if current_q == len(questions) - 1:
-                    if st.button("🏁 Terminer le QCM"):
+                    if st.button("🏁 Terminer le QCM", use_container_width=True):
                         if user_answer is not None:
                             is_correct = check_answer(current_q, user_answer)
                             st.session_state.answers.append({
@@ -372,7 +368,7 @@ def main():
                             st.session_state.quiz_finished = True
                             st.rerun()
                 else:
-                    if st.button("➡️ Question suivante"):
+                    if st.button("➡️ Question suivante", use_container_width=True):
                         if user_answer is not None:
                             is_correct = check_answer(current_q, user_answer)
                             st.session_state.answers.append({
