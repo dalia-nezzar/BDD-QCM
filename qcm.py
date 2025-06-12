@@ -198,7 +198,7 @@ questions = [
         "type": "code",
         "question": "Complétez la commande pg_dump pour se connecter à un serveur distant avec authentification :",
         "code_template": "pg_dump -h host -p port -U ________ dbname > backup.sql",
-        "correct": "nom_utilisateur",
+        "correct": "username",
         "explanation": "Le paramètre -U est suivi du nom d'utilisateur pour l'authentification lors de l'utilisation de pg_dump."
     },
     {
