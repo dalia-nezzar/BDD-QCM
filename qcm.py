@@ -277,12 +277,17 @@ def check_answer(q_index, user_answer):
     question = questions[q_index]
 
     if question["type"] == "mcq":
-        return user_answer == question["correct"]
+        correct_index = question["correct"]
+        return user_answer == question["options"][correct_index]
 
     elif question["type"] == "multiple":
+        if not user_answer:  # Si la liste est vide
+            return False
         return set(user_answer) == set(question["correct"])
 
     elif question["type"] == "code":
+        if not user_answer:  # Si la réponse est vide
+            return False
         return user_answer.upper().strip() == question["correct"].upper()
 
 
@@ -328,7 +333,7 @@ def main():
 
         col1, col2, col3 = st.columns([1, 1, 1])
         with col2:
-            if st.button("🚀 Commencer le QCM", size="large"):
+            if st.button("🚀 Commencer le QCM"):
                 shuffle_questions()
                 st.session_state.quiz_started = True
                 st.session_state.current_question = 0
