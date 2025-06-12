@@ -328,7 +328,7 @@ def main():
 
         col1, col2, col3 = st.columns([1, 1, 1])
         with col2:
-            if st.button("🚀 Commencer le QCM", size="large"):
+            if st.button("🚀 Commencer le QCM"):
                 shuffle_questions()
                 st.session_state.quiz_started = True
                 st.session_state.current_question = 0
